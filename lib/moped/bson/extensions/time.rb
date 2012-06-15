@@ -11,7 +11,7 @@ module Moped
 
         def __bson_dump__(io, key)
           io << Types::TIME
-          io << key
+          io << key.dup.force_encoding('binary')
           io << NULL_BYTE
           io << [to_f * 1000].pack(INT64_PACK)
         end

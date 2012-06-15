@@ -67,6 +67,11 @@ describe Moped::BSON::Document do
         Hash["type" => string]
     end
 
+    it "tries to encode hash with utf8 key and utf8 value" do
+      doc = {"å" => "µ"}
+      Moped::BSON::Document.deserialize(StringIO.new(Moped::BSON::Document.serialize(doc))).should eq doc
+    end
+
     it "handles binary string values of utf-8 content" do
       string = "europäischen"
       doc = { "type" => string.encode('binary', 'binary') }

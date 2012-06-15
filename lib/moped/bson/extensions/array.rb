@@ -20,7 +20,7 @@ module Moped
 
         def __bson_dump__(io, key)
           io << Types::ARRAY
-          io << key
+          io << key.dup.force_encoding('binary')
           io << NULL_BYTE
 
           start = io.length

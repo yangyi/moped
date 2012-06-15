@@ -24,7 +24,7 @@ module Moped
 
         def __bson_dump__(io, key)
           io << Types::REGEX
-          io << key
+          io << key.dup.force_encoding('binary')
           io << NULL_BYTE
 
           data = Extensions.force_binary(source)

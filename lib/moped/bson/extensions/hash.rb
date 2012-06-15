@@ -10,7 +10,7 @@ module Moped
             io.read 4
 
             while (buf = io.readbyte) != 0
-              key = io.gets(NULL_BYTE).chop!
+              key = io.gets(NULL_BYTE).chop!.force_encoding('utf-8')
 
               if native_class = Types::MAP[buf]
                 doc[key] = native_class.__bson_load__(io)
@@ -24,7 +24,7 @@ module Moped
         def __bson_dump__(io = "", key = nil)
           if key
             io << Types::HASH
-            io << key
+            io << key.dup.force_encoding('binary')
             io << NULL_BYTE
           end
 

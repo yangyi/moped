@@ -18,12 +18,12 @@ module Moped
         def __bson_dump__(io, key)
           if self >= INT32_MIN && self <= INT32_MAX
             io << Types::INT32
-            io << key
+            io << key.dup.force_encoding('binary')
             io << NULL_BYTE
             io << [self].pack(INT32_PACK)
           elsif self >= INT64_MIN && self <= INT64_MAX
             io << Types::INT64
-            io << key
+            io << key.dup.force_encoding('binary')
             io << NULL_BYTE
             io << [self].pack(INT64_PACK)
           else
